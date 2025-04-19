@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel de Testes Criativos</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 2rem;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2e7d32;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border-radius: 12px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .section h2 {
+      color: #1b5e20;
+      border-bottom: 2px solid #c8e6c9;
+      padding-bottom: 0.5rem;
+    }
+
+    .item {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background-color: #e8f5e9;
+      border-left: 6px solid #66bb6a;
+      border-radius: 8px;
+    }
+
+    .item strong {
+      display: block;
+      font-size: 1.1rem;
+      color: #2e7d32;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #555;
+    }
+
+    .form {
+      margin-top: 1rem;
+    }
+
+    .form input,
+    .form textarea,
+    .form select {
+      width: 100%;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .form button {
+      background-color: #43a047;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .form button:hover {
+      background-color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <h1>Painel de Testes Criativos</h1>
+
+  <!-- Seções com IDs para adicionar conteúdo dinamicamente -->
+  <div class="section" id="finalizados">
+    <h2>1. Testes Finalizados</h2>
+  </div>
+
+  <div class="section" id="andamento">
+    <h2>2. Testes em Andamento</h2>
+  </div>
+
+  <div class="section" id="explorar">
+    <h2>3. Testes a Explorar</h2>
+  </div>
+
+  <div class="section" id="anotacoes">
+    <h2>4. Anotações de Estudo</h2>
+    <ul id="listaAnotacoes"></ul>
+  </div>
+
+  <!-- Formulário para adicionar novo item -->
+  <div class="section">
+    <h2>Adicionar Novo Teste</h2>
+    <div class="form">
+      <label for="titulo">Título do Teste:</label>
+      <input type="text" id="titulo">
+
+      <label for="objetivo">Objetivo:</label>
+      <input type="text" id="objetivo">
+
+      <label for="descricao">Descrição/Aprendizado/Desafios:</label>
+      <textarea id="descricao" rows="3"></textarea>
+
+      <label for="categoria">Categoria:</label>
+      <select id="categoria">
+        <option value="finalizados">Testes Finalizados</option>
+        <option value="andamento">Testes em Andamento</option>
+        <option value="explorar">Testes a Explorar</option>
+      </select>
+
+      <button onclick="adicionarTeste()">Adicionar Teste</button>
+    </div>
+  </div>
+
+  <!-- Formulário para adicionar anotação -->
+  <div class="section">
+    <h2>Adicionar Anotação de Estudo</h2>
+    <div class="form">
+      <label for="anotacao">Nova Anotação:</label>
+      <input type="text" id="anotacao">
+      <button onclick="adicionarAnotacao()">Adicionar Anotação</button>
+    </div>
+  </div>
+
+  <script>
+    function adicionarTeste() {
+      const titulo = document.getElementById('titulo').value;
+      const objetivo = document.getElementById('objetivo').value;
+      const descricao = document.getElementById('descricao').value;
+      const categoria = document.getElementById('categoria').value;
+
+      if (!titulo || !objetivo) {
+        alert('Preencha pelo menos o título e objetivo.');
+        return;
+      }
+
+      const item = document.createElement('div');
+      item.className = 'item';
+      item.innerHTML = `<strong>${titulo}</strong>
+        <span class="label">Objetivo:</span> ${objetivo}<br>
+        <span class="label">Descrição:</span> ${descricao}`;
+
+      document.getElementById(categoria).appendChild(item);
+
+      // Limpa o formulário
+      document.getElementById('titulo').value = '';
+      document.getElementById('objetivo').value = '';
+      document.getElementById('descricao').value = '';
+    }
+
+    function adicionarAnotacao() {
+      const anotacao = document.getElementById('anotacao').value;
+      if (!anotacao) return;
+
+      const li = document.createElement('li');
+      li.textContent = anotacao;
+      document.getElementById('listaAnotacoes').appendChild(li);
+
+      document.getElementById('anotacao').value = '';
+    }
+  </script>
+</body>
+</html>
